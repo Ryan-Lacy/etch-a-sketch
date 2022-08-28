@@ -45,3 +45,11 @@ h1 {
     border: 1px solid black;
     text-align: center;
 }
+
+button {
+    padding: 10px;
+    border: 10px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+}

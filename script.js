@@ -1,15 +1,20 @@
-// Function that creates a 16x16 grid
-function createGrid() {
-    const GRID_SIZE = 16;
+const DEFAULT_GRID_SIZE = 16;
+
+// Function that creates a square grid
+function createGrid(newGridSize) {
+    // If size not passed, fall to system default size
+    if (typeof newGridSize == 'undefined') {
+        newGridSize = GRID_SIZE;
+    }
     let container = document.querySelector(".grid-container");
 
     // TODO - better understand how these properties work
-    container.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 1fr)`;
-    container.style.gridTemplateRows = `repeat(${GRID_SIZE}, 1fr)`;
+    container.style.gridTemplateColumns = `repeat(${newGridSize}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${newGridSize}, 1fr)`;
 
     // Create the grid, give them a class, and add event listeners
-    for (var row = 0; row < GRID_SIZE; row++) {
-        for (var col = 0; col < GRID_SIZE; col++) {
+    for (var row = 0; row < newGridSize; row++) {
+        for (var col = 0; col < newGridSize; col++) {
             var cell = document.createElement("div");
             cell.classList.add("square");
             container.appendChild(cell);
@@ -22,4 +27,31 @@ function changeColor(event) {
     event.target.style.backgroundColor = "black";
 }
 
-createGrid();
+let resetButton = document.querySelector(".reset-button");
+resetButton.addEventListener("click",resetGrid);
+
+// Function that prompts the user for a new grid size, then creates it
+function resetGrid() {
+    let userInput = prompt("Enter a new grid size (<=100): ", "16");
+    let newGridSize = parseInt(userInput);
+
+    // TODO - add NaN checking
+    if (newGridSize >100) {
+        window.alert("Value must be <= 100. Please try again.");
+        return;
+    }
+
+    clearGrid();
+    createGrid(newGridSize);
+}
+
+// This function removes the currently existing grid
+function clearGrid() {
+    let squares = document.querySelectorAll(".square");
+
+    for (let square of squares) {
+        square.remove();
+    }
+}
+
+createGrid(DEFAULT_GRID_SIZE);
