@@ -30,14 +30,13 @@ function changeColor(event) {
 let resetButton = document.querySelector(".reset-button");
 resetButton.addEventListener("click",resetGrid);
 
-// Function that prompts the user for a new grid size, then creates it
+// Prompts the user for a new grid size, then creates it
 function resetGrid() {
     let userInput = prompt("Enter a new grid size (<=100): ", "16");
     let newGridSize = parseInt(userInput);
 
-    // TODO - add NaN checking
-    if (newGridSize >100) {
-        window.alert("Value must be <= 100. Please try again.");
+    if (isNaN(newGridSize) || newGridSize >100 || newGridSize < 1) {
+        window.alert(`Value must be a number between 1 and 100 (you entered ${userInput}). Please try again.`);
         return;
     }
 
